@@ -35,7 +35,7 @@ public class Usuario implements UserDetails {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "usuario_id", referencedColumnName = "id")
-    private List<Telefone> telefones ;
+    private List<Telefone> telefone;
 
 
     @Override
