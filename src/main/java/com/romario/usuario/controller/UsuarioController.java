@@ -4,8 +4,12 @@ import com.romario.usuario.business.UsuarioService;
 import com.romario.usuario.business.dto.EnderecoDTO;
 import com.romario.usuario.business.dto.TelefoneDTO;
 import com.romario.usuario.business.dto.UsuarioDTO;
+
 import com.romario.usuario.infrastructure.entity.Usuario;
 import com.romario.usuario.infrastructure.security.JwtUtil;
+import com.romario.usuario.infrastructure.security.SecurityConfig;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,6 +21,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("usuario")
 @RequiredArgsConstructor
+@Tag(name="usuario", description = "cadastro e login de usuario")
+@SecurityRequirement(name= SecurityConfig.SECURITY_SCHEME)
 public class UsuarioController {
     private final UsuarioService usuarioService;
     private final AuthenticationManager authenticationManager;
