@@ -1,10 +1,12 @@
 package com.romario.usuario.controller;
 
 import com.romario.usuario.business.UsuarioService;
+import com.romario.usuario.business.ViaCepService;
 import com.romario.usuario.business.dto.EnderecoDTO;
 import com.romario.usuario.business.dto.TelefoneDTO;
 import com.romario.usuario.business.dto.UsuarioDTO;
 
+import com.romario.usuario.infrastructure.client.ViaCepDTO;
 import com.romario.usuario.infrastructure.entity.Usuario;
 import com.romario.usuario.infrastructure.security.JwtUtil;
 import com.romario.usuario.infrastructure.security.SecurityConfig;
@@ -25,8 +27,14 @@ import org.springframework.web.bind.annotation.*;
 @SecurityRequirement(name= SecurityConfig.SECURITY_SCHEME)
 public class UsuarioController {
     private final UsuarioService usuarioService;
+    private final ViaCepService viaCepService;
     private final AuthenticationManager authenticationManager;
     private final JwtUtil jwtUtil;
+
+    @GetMapping("/endereco/{cep}")
+    public ResponseEntity<ViaCepDTO> buscarDadosCep(@PathVariable("cep") String cep){
+        return ResponseEntity.ok(viaCepService.buscaDadosEndereco(cep));
+    }
 
     @PostMapping
     public ResponseEntity<UsuarioDTO> salvaUsuario(@RequestBody UsuarioDTO usuarioDTO){

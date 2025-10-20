@@ -1,6 +1,7 @@
 package com.romario.usuario.controller;
 
 import com.romario.usuario.infrastructure.exceptions.ConflictException;
+import com.romario.usuario.infrastructure.exceptions.IllegalArgumentException;
 import com.romario.usuario.infrastructure.exceptions.ResourceNotFoundException;
 import com.romario.usuario.infrastructure.exceptions.UnaltorizedException;
 import org.springframework.http.HttpStatus;
@@ -23,6 +24,11 @@ public class GlobalExeptionHandler {
     @ExceptionHandler(UnaltorizedException.class)
     public ResponseEntity<String> handleUnaltorizedException(UnaltorizedException exception){
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<String> handleIllegalArgument(IllegalArgumentException exception){
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
 }
