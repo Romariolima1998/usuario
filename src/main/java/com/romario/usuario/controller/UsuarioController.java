@@ -28,8 +28,6 @@ import org.springframework.web.bind.annotation.*;
 public class UsuarioController {
     private final UsuarioService usuarioService;
     private final ViaCepService viaCepService;
-    private final AuthenticationManager authenticationManager;
-    private final JwtUtil jwtUtil;
 
     @GetMapping("/endereco/{cep}")
     public ResponseEntity<ViaCepDTO> buscarDadosCep(@PathVariable("cep") String cep){
@@ -46,11 +44,8 @@ public class UsuarioController {
     @PostMapping("/login")
     @ResponseBody
     public ResponseEntity<String> login(@RequestBody UsuarioDTO usuarioDTO){
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(usuarioDTO.getEmail(), usuarioDTO.getSenha())
-        );
-        String jwtToken = "Bearer " + jwtUtil.generateToken(authentication.getName());
-        return  ResponseEntity.status(201).body(jwtToken);
+
+        return  ResponseEntity.status(201).body(usuarioService.autenticarUsuario(usuarioDTO));
     }
 
     @GetMapping
