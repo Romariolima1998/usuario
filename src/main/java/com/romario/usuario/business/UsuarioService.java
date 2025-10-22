@@ -52,7 +52,7 @@ public class UsuarioService {
             );
             return "Bearer " + jwtUtil.generateToken(authentication.getName());
         } catch (BadCredentialsException | UsernameNotFoundException | AuthorizationDeniedException e) {
-            throw new UnaltorizedException("usuario ou senha invalidos", e.getCause())
+            throw new UnaltorizedException("usuario ou senha invalidos", e.getCause());
         }
     }
 
